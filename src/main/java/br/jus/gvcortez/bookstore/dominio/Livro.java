@@ -1,24 +1,45 @@
 package br.jus.gvcortez.bookstore.dominio;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Livro {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
-	private Long idLivro;
+@Entity
+@Table(name="tb_livro")
+public class Livro  implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_livro;
+
 	private String titulo;
+	
 	private String nome_autor;
+	
 	private String descricao;
+	
 	private String texto;
 
+	@ManyToOne
+	@JoinColumn(name="id_categoria")
 	private Categoria categoria;
 
 	public Livro() {
 		super();
 	}
 
-	public Livro(Long idLivro, String titulo, String nome_autor, String descricao, String texto, Categoria categoria) {
+	public Livro(Long id_livro, String titulo, String nome_autor, String descricao, String texto, Categoria categoria) {
 		super();
-		this.idLivro = idLivro;
+		this.id_livro = id_livro;
 		this.titulo = titulo;
 		this.nome_autor = nome_autor;
 		this.descricao = descricao;
@@ -26,12 +47,12 @@ public class Livro {
 		this.categoria = categoria;
 	}
 
-	public Long getIdLivro() {
-		return idLivro;
+	public Long getid_livro() {
+		return id_livro;
 	}
 
-	public void setIdLivro(Long idLivro) {
-		this.idLivro = idLivro;
+	public void setid_livro(Long id_livro) {
+		this.id_livro = id_livro;
 	}
 
 	public String getTitulo() {
@@ -76,7 +97,7 @@ public class Livro {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idLivro);
+		return Objects.hash(id_livro);
 	}
 
 	@Override
@@ -88,7 +109,7 @@ public class Livro {
 		if (getClass() != obj.getClass())
 			return false;
 		Livro other = (Livro) obj;
-		return Objects.equals(idLivro, other.idLivro);
+		return Objects.equals(id_livro, other.id_livro);
 	}
 
 }

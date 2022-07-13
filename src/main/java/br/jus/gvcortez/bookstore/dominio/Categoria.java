@@ -1,34 +1,51 @@
 package br.jus.gvcortez.bookstore.dominio;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class Categoria {
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
-	private Long idCategoria;
+@Entity
+@Table(name="tb_categoria")
+public class Categoria implements Serializable {
+
+	private static final long serialVersionUID = 1L;
+	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id_categoria;
+	
 	private String nome;
+	
 	private String descricao;
 
-	private List<Livro> livros = new ArrayList();
+	@OneToMany
+	private List<Livro> livros = new ArrayList<>();
 
 	public Categoria() {
 		super();
 	}
 
-	public Categoria(Long idCategoria, String nome, String descricao) {
+	public Categoria(Long id_categoria, String nome, String descricao) {
 		super();
-		this.idCategoria = idCategoria;
+		this.id_categoria = id_categoria;
 		this.nome = nome;
 		this.descricao = descricao;
 	}
 
-	public Long getIdCategoria() {
-		return idCategoria;
+	public Long getid_categoria() {
+		return id_categoria;
 	}
 
-	public void setIdCategoria(Long idCategoria) {
-		this.idCategoria = idCategoria;
+	public void setid_categoria(Long id_categoria) {
+		this.id_categoria = id_categoria;
 	}
 
 	public String getNome() {
@@ -57,7 +74,7 @@ public class Categoria {
 
 	@Override
 	public int hashCode() {
-		return Objects.hash(idCategoria);
+		return Objects.hash(id_categoria);
 	}
 
 	@Override
@@ -69,7 +86,7 @@ public class Categoria {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
-		return Objects.equals(idCategoria, other.idCategoria);
+		return Objects.equals(id_categoria, other.id_categoria);
 	}
 
 }
