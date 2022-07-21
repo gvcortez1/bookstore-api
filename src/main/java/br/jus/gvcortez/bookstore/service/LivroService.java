@@ -8,7 +8,6 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 import br.jus.gvcortez.bookstore.dominio.Livro;
-import br.jus.gvcortez.bookstore.dtos.LivroDTO;
 import br.jus.gvcortez.bookstore.exception.ObjectNotFoundException;
 import br.jus.gvcortez.bookstore.repositories.LivroRepository;
 
@@ -40,16 +39,20 @@ public class LivroService {
 		return livroRepository.save(objLivro);
 	}
 
-	public Livro update(Long id, LivroDTO objLivroDTO) {
+	public Livro update(Long id, Livro objLivro) {
 
-		Livro objLivro = findById(id);
+		Livro objLivroNew = findById(id);
 		
-		objLivro.setTitulo(objLivroDTO.getTitulo());
-		// objLivro.setNome_autor(objLivroDTO.getNome_autor());
-		// objLivro.setDescricao(objLivroDTO.getDescricao());
-		// objLivro.setTexto(objLivroDTO.getTexto());
+		updateData(objLivroNew, objLivro);
 		
-		return livroRepository.save(objLivro);
+		return livroRepository.save(objLivroNew);
+	}
+
+	private void updateData(Livro objLivroNew, Livro objLivro) {
+
+		objLivroNew.setTitulo(objLivro.getTitulo());
+		objLivroNew.setNome_autor(objLivro.getNome_autor());
+		objLivroNew.setDescricao(objLivro.getDescricao());
 	}
 
 	public void delete(Long id) {
