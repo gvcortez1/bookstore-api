@@ -17,6 +17,9 @@ public class LivroService {
 
 	@Autowired
 	private LivroRepository livroRepository;
+	
+	@Autowired
+	private CategoriaService categoriaService;
 
 	public Livro findById(Long id) {
 
@@ -25,9 +28,11 @@ public class LivroService {
 				new ObjectNotFoundException("Objeto não encontrado! Id: " + id + " - Tipo: " + Livro.class.getName()));
 	}
 
-	public List<Livro> findAll() {
+	public List<Livro> findAll(Long id_cat) {
 
-		return livroRepository.findAll();
+		categoriaService.findById(id_cat);
+		
+		return livroRepository.findAllByCategoria(id_cat);
 	}
 	
 	public Livro create(Livro objLivro) {
@@ -40,9 +45,9 @@ public class LivroService {
 		Livro objLivro = findById(id);
 		
 		objLivro.setTitulo(objLivroDTO.getTitulo());
-		objLivro.setNome_autor(objLivroDTO.getNome_autor());
-		objLivro.setDescricao(objLivroDTO.getDescricao());
-		objLivro.setTexto(objLivroDTO.getTexto());
+		// objLivro.setNome_autor(objLivroDTO.getNome_autor());
+		// objLivro.setDescricao(objLivroDTO.getDescricao());
+		// objLivro.setTexto(objLivroDTO.getTexto());
 		
 		return livroRepository.save(objLivro);
 	}

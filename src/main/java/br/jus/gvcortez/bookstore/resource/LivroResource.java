@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -35,9 +36,9 @@ public class LivroResource {
 	}
 
 	@GetMapping
-	public ResponseEntity<List<LivroDTO>> findAll() {
+	public ResponseEntity<List<LivroDTO>> findAll(@RequestParam(value = "categoria", defaultValue = "0") Long id_cat) {
 
-		List<Livro> livroList = livroService.findAll();
+		List<Livro> livroList = livroService.findAll(id_cat);
 		List<LivroDTO> livroListDTO = livroList.stream().map(objLivro -> new LivroDTO(objLivro))
 				.collect(Collectors.toList());
 		return ResponseEntity.ok().body(livroListDTO); 
