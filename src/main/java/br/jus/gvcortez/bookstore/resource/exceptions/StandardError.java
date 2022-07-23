@@ -1,4 +1,4 @@
-package br.jus.gvcortez.bookstore.resource.exception;
+package br.jus.gvcortez.bookstore.resource.exceptions;
 
 public class StandardError {
 
